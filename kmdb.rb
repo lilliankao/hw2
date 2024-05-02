@@ -75,14 +75,69 @@
 
 # Delete existing data, so you'll start fresh each time this script is run.
 # Use `Model.destroy_all` code.
-# TODO!
+Studio.destroy_all
+Movie.destroy_all
+Actor.destroy_all
+Role.destroy_all
 
 # Generate models and tables, according to the domain model.
-# TODO!
+#see rb files under app/models and db/migrate
 
 # Insert data into the database that reflects the sample data shown above.
 # Do not use hard-coded foreign key IDs.
-# TODO!
+
+warner_bros = Studio.new
+warner_bros["name"] = "Warner Bros."
+warner_bros.save
+
+batman_begins = Movie.new
+batman_begins["title"] = "Batman Begins"
+batman_begins["year_released"] = 2005
+batman_begins["rated"] = "PG-13"
+batman_begins["studio_id"] = Studio.find_by({"name" => warner_bros["name"]}).id
+batman_begins.save
+
+dn = Movie.new
+dn["title"] = "The Dark Knight"
+dn["year_released"] = 2008
+dn["rated"] = "PG-13"
+dn["studio_id"] = Studio.find_by({"name" => warner_bros["name"]}).id
+dn.save
+
+
+dnr = Movie.new
+dnr["title"] = "The Dark Knight Rises"
+dnr["year_released"] = 2012
+dnr["rated"] = "PG-13"
+dnr["studio_id"] = Studio.find_by({"name" => warner_bros["name"]}).id
+dnr.save
+
+actor= Actor.new
+actor["name"] = "Christian Bale"
+actor.save
+
+actor= Actor.new
+actor["name"] = "Michael Caine"
+actor.save
+
+actor= Actor.new
+actor["name"] = "Liam Neeson"
+actor.save
+
+actor= Actor.new
+actor["name"] = "Katie Holmes"
+actor.save
+
+actor= Actor.new
+actor["name"] = "Gary Oldman"
+actor.save
+
+
+role = Role.new
+role["movie_id"] = Studio.find_by({"id" => batman_begins["name"]})
+role["actor_id"] = Studio.find_by({"id" => actor["Christian Holmes"]})
+role["character_name"] = "Bruce Wayne"
+
 
 # Prints a header for the movies output
 puts "Movies"
@@ -90,7 +145,20 @@ puts "======"
 puts ""
 
 # Query the movies data and loop through the results to display the movies output.
-# TODO!
+movies = Movie.where({"studio_id" => warner_bros["id"]})
+
+for movie in movies
+
+    puts "#{movie.title}"
+    puts "#{movie.year_released}"
+    puts "#{movie.rated}"
+    puts "#{movie.studio_id}"
+end
+
+puts movies.all.count
+
+puts Studio.all.count
+
 
 # Prints a header for the cast output
 puts ""
