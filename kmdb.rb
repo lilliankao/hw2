@@ -148,11 +148,10 @@ puts ""
 movies = Movie.where({"studio_id" => warner_bros["id"]})
 
 for movie in movies
-
-    puts "#{movie.title}"
-    puts "#{movie.year_released}"
-    puts "#{movie.rated}"
-    puts "#{movie.studio_id}"
+    puts "#{movie.title} " +
+    "#{movie.year_released} " +
+    "#{movie.rated} " +
+    "#{Studio.find_by({"id" => movie.studio_id}).name}"
 end
 
 puts movies.all.count
